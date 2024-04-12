@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Salom dunyo</h1>
+    <div id="networkInfo"></div>
+
+    <!-- JavaScript kodlari -->
+    <script>
+      // AJAX so'rovi orqali serverdan ma'lumotlarni olish
+      fetch('/data')
+        .then(response => response.json())
+        .then(data => {
+          // Ma'lumotlarni HTML-ga joylash
+          const networkInfoDiv = document.getElementById('networkInfo');
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              const networks = data[key];
+              for (const network of networks) {
+                const networkElement = document.createElement('div');
+                networkElement.textContent = `${key}: ${JSON.stringify(network)}`;
+                networkInfoDiv.appendChild(networkElement);
+              }
+            }
+          }
+        })
+        .catch(error => console.error('Xatolik:', error));
+    </script>
+  </body>
+</html>
